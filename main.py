@@ -120,7 +120,7 @@ class Main:
         toast = win10toast.ToastNotifier()
         toast.show_toast(
             "AkkuGuard!",
-            "\nSchließe deinen Computer bitte an!\n\nAkkuladung: 20%",
+            "\nSchließe deinen Computer bitte an Strom an!\n\nAkkuladung: 20%",
             duration=8,
             icon_path="logo.ico",
             threaded=True
@@ -133,7 +133,7 @@ class Main:
 
     def start8(self):
         self.setGui()
-        self.dark_label15["text"] = "Schließe deinen Computer an oder fahre ihn herunter!\nAkkuladung: 8%"
+        self.dark_label15["text"] = "Schließe deinen Computer an Strom an oder fahre ihn herunter!\nAkkuladung: 8%"
         self.dark_label15["fg"] = "red"
         self.close_button["command"] = self.kill10
         self.close_button["text"] = "Computer herunterfahren!"
@@ -154,35 +154,36 @@ class Main:
 
 
 if __name__ == '__main__':
-    print("program started")
+    print("DEBUG: program started")
     main = Main()
     while True:
-        print("entered main-loop")
+        print("DEBUG: entered main-loop")
         if not psutil.sensors_battery().power_plugged:
             print(psutil.sensors_battery().percent)
             if 20 >= psutil.sensors_battery().percent >= 16:
-                print("start 20")
+                print("DEBUG: start 20")
                 main.start20()
                 while True:
-                    print("wait for next battery change!")
-                    if psutil.sensors_battery().power_plugged or not 20 <= psutil.sensors_battery().percent > 15:
+                    print("DEBUG: wait for next battery change!")
+                    if psutil.sensors_battery().power_plugged or not 20 >= psutil.sensors_battery().percent > 15:
+                        print(20 <= psutil.sensors_battery().percent)
                         break
                     time.sleep(5)
             elif 15 >= psutil.sensors_battery().percent >= 8:
-                print("start 15")
+                print("DEBUG: start 15")
                 main.start15()
                 while True:
-                    print("wait for next battery change!")
-                    if psutil.sensors_battery().power_plugged or not 15 <= psutil.sensors_battery().percent > 10:
+                    print("DEBUG: wait for next battery change!")
+                    if psutil.sensors_battery().power_plugged or not 15 >= psutil.sensors_battery().percent > 10:
                         break
                     time.sleep(5)
             elif psutil.sensors_battery().percent <= 8:
-                print("start 8")
+                print("DEBUG: start 8")
                 main.start8()
                 while True:
-                    print("wait for next battery change!")
+                    print("DEBUG: wait for next battery change!")
                     if psutil.sensors_battery().power_plugged or not psutil.sensors_battery().percent <= 8:
                         break
                     time.sleep(5)
-        print("enter delay")
-        time.sleep(10)
+        print("DEBUG: enter delay")
+        time.sleep(30)
