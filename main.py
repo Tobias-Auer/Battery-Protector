@@ -174,7 +174,7 @@ if __name__ == '__main__':
                 main.start15()
                 while True:
                     print("DEBUG: wait for next battery change!")
-                    if psutil.sensors_battery().power_plugged or not 15 >= psutil.sensors_battery().percent > 10:
+                    if psutil.sensors_battery().power_plugged or not 15 >= psutil.sensors_battery().percent > 8:
                         break
                     time.sleep(5)
             elif psutil.sensors_battery().percent <= 8:
